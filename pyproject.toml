@@ -1,0 +1,22 @@
+[project]
+name = "maxro-tracker"
+version = "0.1.0"
+description = "Local-first macro and weight tracker with a structured Python core."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["maxro_tracker*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
