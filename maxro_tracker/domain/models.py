@@ -30,6 +30,8 @@ class MacroTotals:
 class MacroTarget(MacroTotals):
     id: int | None = None
     goal_name: str | None = None
+    start_date: date | None = None
+    end_date: date | None = None
 
 
 @dataclass(frozen=True)
@@ -39,6 +41,19 @@ class MacroPercentages:
     carbs_g: float | None
     fat_g: float | None
     fiber_g: float | None = None
+
+
+@dataclass(frozen=True)
+class DaySummary:
+    log_date: date
+    consumed: MacroTotals
+    target: MacroTarget | None = None
+    remaining: MacroTotals | None = None
+    percentages: MacroPercentages | None = None
+    entries: tuple["MealEntry", ...] = ()
+    weight_log: "WeightLog | None" = None
+    weight_average_7_day: float | None = None
+    note: "DailyNote | None" = None
 
 
 @dataclass(frozen=True)
@@ -56,6 +71,28 @@ class MealEntryItem:
     food_item_id: int | None = None
     recipe_id: int | None = None
     user_overridden: bool = False
+    id: int | None = None
+    meal_entry_id: int | None = None
+
+
+@dataclass(frozen=True)
+class FoodItem(MacroTotals):
+    name: str = ""
+    default_unit: str = ""
+    source: NutritionSource = "common_database"
+    confidence: Confidence = "medium"
+    brand: str | None = None
+    id: int | None = None
+
+
+@dataclass(frozen=True)
+class MealEntry:
+    log_date: date
+    raw_text: str | None = None
+    meal_name: str | None = None
+    log_time: str | None = None
+    id: int | None = None
+    items: tuple[MealEntryItem, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -89,3 +126,13 @@ class WeightLog:
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
+
+@dataclass(frozen=True)
+class DailyNote:
+    log_date: date
+    training_type: str | None = None
+    hunger_rating: str | None = None
+    energy_rating: str | None = None
+    adherence_note: str | None = None
+    freeform_note: str | None = None
+    id: int | None = None

@@ -13,7 +13,7 @@ This keeps JavaScript close to the UI while preserving Python for the parts wher
 
 ## Milestone 1: Structured Core
 
-Status: in progress
+Status: complete
 
 Deliver:
 
@@ -21,17 +21,22 @@ Deliver:
 2. Pure macro functions for totals, remaining macros, percentages, and adherence status.
 3. Pure weight trend function for a 7-day average.
 4. SQLite P0 migration files.
-5. Approximate seed foods marked as `common_database` and `medium` confidence until manually verified.
+5. Public demo seed data only. Real foods and targets stay local/private.
 
 ## Milestone 2: Local Data Access
+
+Status: complete
 
 Deliver:
 
 1. Repository layer for daily targets, food items, meal entries, meal item snapshots, weight logs, and notes.
 2. Database initialization command for `./data/maxro_tracker.sqlite`.
 3. Tests for create/read/update/delete behavior and snapshot preservation.
+4. Application service for manual macro logging, known-food logging, weight logging, and daily summaries.
 
 ## Milestone 3: Minimal Desktop UI
+
+Status: next
 
 Deliver:
 
@@ -50,4 +55,3 @@ Deliver:
 3. LLM provider interface.
 4. Mock provider for tests.
 5. Nutrition resolver that never invents macros for unknown foods.
-
