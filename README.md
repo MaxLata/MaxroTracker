@@ -1,11 +1,45 @@
-# MaxroTracker (cuz my name is Max, and I'm vain)
+# MaxroTracker
 
-Hello world!
+Local-first macro and weight tracking app with a structured data core and a future natural-language input layer.
 
-I'm just a gay boy trying to get big/skinny, but I'm also a nerd. I'm building this side project as a foray into LLM assisted side project coding.
+## Product idea
 
-I was using a ChatGPT conversation to track my macros, but as it's such a long conversation, I was sometimes running into context rot. 
+MaxroTracker is designed to make nutrition logging lower-friction while keeping calculations grounded in structured local data.
 
-I don't think I should be using AI for something like making calculations of especially known and vetted information like macros - LLMs don't yet have a bomb calorimeter on hand. They barely have stopwatches. 
+The LLM should eventually parse food text into structured candidates. It should not be the source of truth for nutrition values.
 
-The goal here is to track my macros, but with a tool that has markedly less friction than something like MyFitnessPal. I am trying to use an LLM as the NLP parsing layer. I don't want to tab to things like my daily totals, I'd rather just ask. I don't want to take time to fill in a bunch of cells. I want to say "I cooked 300g chicken breast and 1/2 cup quinoa. I had my smoothie." 
+## Current scaffold
+
+The first implementation slice is the structured Python core:
+
+- domain models for macros, meal item snapshots, parsed foods, and weight logs
+- pure macro calculator functions
+- pure 7-day weight average function
+- SQLite P0 schema
+- public demo seed data only
+
+The intended app stack is Electron + React for the desktop shell, with Python owning business logic and SQLite access.
+
+## Local setup
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/python -m pytest -q
+```
+
+## Initialize a local database
+
+```bash
+.venv/bin/python - <<'PY'
+from maxro_tracker.db.schema import initialize_database
+
+print(initialize_database())
+PY
+```
+
+This creates `data/maxro_tracker.sqlite`, which is ignored by git.
+
+## Privacy note
+
+Public repo seed data intentionally avoids real foods, recipes, targets, weight logs, and personal examples. User-specific data should be entered through app flows or stored in private, gitignored local seed files.
