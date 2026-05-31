@@ -3,6 +3,7 @@ from maxro_tracker.services.macro_calculator import (
     calculate_adherence_status,
     calculate_macro_percentages,
     calculate_remaining,
+    scale_macro_totals,
     sum_macro_totals,
 )
 
@@ -36,6 +37,21 @@ def test_calculate_remaining_subtracts_consumed_from_target() -> None:
     remaining = calculate_remaining(consumed, target)
 
     assert remaining == MacroTotals(calories=580, protein_g=18, carbs_g=60, fat_g=21, fiber_g=None)
+
+
+def test_scale_macro_totals_multiplies_all_present_values() -> None:
+    scaled = scale_macro_totals(
+        MacroTotals(calories=100, protein_g=10, carbs_g=20, fat_g=3, fiber_g=5),
+        2.5,
+    )
+
+    assert scaled == MacroTotals(
+        calories=250,
+        protein_g=25,
+        carbs_g=50,
+        fat_g=7.5,
+        fiber_g=12.5,
+    )
 
 
 def test_calculate_macro_percentages_returns_none_for_missing_or_zero_target() -> None:
@@ -91,4 +107,3 @@ def _item(
         source="manual",
         confidence="high",
     )
-

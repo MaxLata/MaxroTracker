@@ -17,6 +17,8 @@ The first implementation slice is the structured Python core:
 - pure 7-day weight average function
 - SQLite P0 schema
 - public demo seed data only
+- SQLite repository functions for targets, foods, meal entries, weights, and notes
+- application service for manual macro logging, known-food logging, weight logging, and daily summaries
 
 The intended app stack is Electron + React for the desktop shell, with Python owning business logic and SQLite access.
 

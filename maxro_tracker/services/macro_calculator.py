@@ -22,6 +22,16 @@ def sum_macro_totals(items: list[MacroTotals] | list[MealEntryItem]) -> MacroTot
     )
 
 
+def scale_macro_totals(macros: MacroTotals, multiplier: float) -> MacroTotals:
+    return MacroTotals(
+        calories=macros.calories * multiplier,
+        protein_g=macros.protein_g * multiplier,
+        carbs_g=macros.carbs_g * multiplier,
+        fat_g=macros.fat_g * multiplier,
+        fiber_g=macros.fiber_g * multiplier if macros.fiber_g is not None else None,
+    )
+
+
 def calculate_remaining(consumed: MacroTotals, target: MacroTarget) -> MacroTotals:
     return MacroTotals(
         calories=target.calories - consumed.calories,
@@ -78,4 +88,3 @@ def _ratio(consumed: float | None, target: float | None) -> float | None:
     if consumed is None or target is None or target == 0:
         return None
     return consumed / target
-
